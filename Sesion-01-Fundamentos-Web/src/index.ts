@@ -10,6 +10,8 @@
  * de estado y cabeceras) implementando pequeñas funciones puras.
  */
 
+import { URL } from "url";
+
 // ---------------------------------------------------------------------------
 // Tipos
 // ---------------------------------------------------------------------------
@@ -18,12 +20,16 @@
 export interface UrlParts {
   /** Protocolo tal como lo devuelve la WHATWG URL, p. ej. "https:". */
   protocol: string;
+
   /** Host (puede incluir puerto), p. ej. "api.ejemplo.com:443". */
   host: string;
+
   /** Ruta, p. ej. "/users". */
   pathname: string;
+
   /** Query string con el "?" inicial, p. ej. "?id=1&name=Ana". */
   search: string;
+
   /** Lista de pares [clave, valor] de los query params. */
   query: Array<[string, string]>;
 }
@@ -45,24 +51,21 @@ export type Headers = Record<string, string>;
 // ---------------------------------------------------------------------------
 
 /**
- * TODO: Analiza una URL y devuelve sus partes.
+ * Analiza una URL y devuelve sus partes principales.
  *
- * Pista: usa el constructor `new URL(url)` (viene con Node, no requiere
- * ninguna librería). Sus propiedades te dan todo lo que necesitas:
- *
- *   const u = new URL("https://api.ejemplo.com/users?id=1");
- *   u.protocol // → "https:"
- *   u.host     // → "api.ejemplo.com"
- *   u.pathname // → "/users"
- *   u.search   // → "?id=1"
- *   u.searchParams.entries() // → iterador [["id","1"]]
- *
- * Si la URL no es válida, `new URL()` lanza TypeError — no hace falta
- * que lo manejes aparte, se propagará solo.
+ * @param url URL que se desea analizar.
+ * @returns Objeto con protocolo, host, ruta, búsqueda y parámetros.
  */
 export function parseUrl(url: string): UrlParts {
-  // TODO: tu implementación aquí
-  throw new Error("Not implemented");
+  const parsedUrl = new URL(url);
+
+  return {
+    protocol: parsedUrl.protocol,
+    host: parsedUrl.host,
+    pathname: parsedUrl.pathname,
+    search: parsedUrl.search,
+    query: Array.from(parsedUrl.searchParams.entries()),
+  };
 }
 
 /**
@@ -128,33 +131,47 @@ export function summarizeRequest(
 }
 
 // ---------------------------------------------------------------------------
-// CLI (opcional, pero recomendado para probar manualmente)
+// CLI
 // ---------------------------------------------------------------------------
 
 if (require.main === module) {
   const [, , cmd, ...args] = process.argv;
+
   try {
     if (cmd === "parse-url" && args[0]) {
       const parts = parseUrl(args[0]);
       console.log(JSON.stringify(parts, null, 2));
     } else if (cmd === "status" && args[0]) {
-      const cat = classifyStatus(Number(args[0]));
-      console.log(cat);
+      const category = classifyStatus(Number(args[0]));
+      console.log(category);
     } else if (cmd === "headers" && args.length > 0) {
-      const h = parseHeaders(args.join(" "));
-      console.log(JSON.stringify(h, null, 2));
+      const headers = parseHeaders(args.join(" "));
+      console.log(JSON.stringify(headers, null, 2));
     } else if (cmd === "summary" && args.length >= 2) {
       const [url, status, ...rest] = args;
-      console.log(summarizeRequest(url, Number(status), rest.join(" ")));
+
+      console.log(
+        summarizeRequest(
+          url,
+          Number(status),
+          rest.join(" "),
+        ),
+      );
     } else {
       console.log("Uso:");
-      console.log('  npm start parse-url "https://ejemplo.com/path?a=1"');
+      console.log(
+        '  npm start parse-url "https://ejemplo.com/path?a=1"',
+      );
       console.log("  npm start status 404");
-      console.log('  npm start headers "Content-Type: application/json"');
-      console.log('  npm start summary "https://x.com" 200 "Content-Type: application/json"');
+      console.log(
+        '  npm start headers "Content-Type: application/json"',
+      );
+      console.log(
+        '  npm start summary "https://x.com" 200 "Content-Type: application/json"',
+      );
     }
-  } catch (e) {
-    console.error("Error:", (e as Error).message);
+  } catch (error) {
+    console.error("Error:", (error as Error).message);
     process.exit(1);
   }
 }
