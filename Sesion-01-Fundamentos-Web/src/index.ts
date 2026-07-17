@@ -69,17 +69,11 @@ export function parseUrl(url: string): UrlParts {
 }
 
 /**
- * TODO: Clasifica un código de estado HTTP en su categoría.
+ * Analiza una URL y devuelve sus partes principales.
  *
- * Reglas:
- *   100–199 → "1xx Informativo"
- *   200–299 → "2xx Éxito"
- *   300–399 → "3xx Redirección"
- *   400–499 → "4xx Error del cliente"
- *   500–599 → "5xx Error del servidor"
- *   otro    → "Desconocido"
- *
- * Pista: un único `if / else if` con comparaciones de rangos basta.
+ * @param url URL que se desea analizar.
+ * @returns Protocolo, host, ruta, búsqueda y parámetros de la URL.
+ * @throws TypeError si la URL proporcionada no es válida.
  */
 export function classifyStatus(code: number): StatusCategory {
   if (code >= 100 && code <= 199) {
@@ -97,20 +91,10 @@ export function classifyStatus(code: number): StatusCategory {
   return "Desconocido";
 }
 /**
- * TODO: Parsea un texto con líneas de cabeceras HTTP al formato
- * `Record<string, string>`. El separador entre nombre y valor es ":".
+ * Clasifica un código de estado HTTP según su rango.
  *
- * Reglas:
- *   - Cada línea no vacía debe tener formato "Nombre: valor".
- *   - Ignora líneas vacías o que no contengan ":".
- *   - No tienes que normalizar mayúsculas/minúsculas del nombre.
- *
- * Ejemplo:
- *   parseHeaders("Content-Type: application/json\nAuthorization: Bearer abc")
- *   → { "Content-Type": "application/json", "Authorization": "Bearer abc" }
- *
- * Pista: `text.split("\n")` te da las líneas; `String.split(":")` te separa
- * nombre y valor. Recuerda `.trim()` para quitar espacios sobrantes.
+ * @param code Código de estado HTTP.
+ * @returns Categoría correspondiente al código o "Desconocido".
  */
 export function parseHeaders(text: string): Headers {
   const headers: Headers = {};
@@ -140,18 +124,12 @@ export function parseHeaders(text: string): Headers {
 }
 
 /**
- * TODO: Combina las funciones anteriores en un resumen legible.
+ * Convierte un texto de cabeceras HTTP en un objeto.
  *
- * El formato exacto lo decides tú (los tests solo verifican que el string
- * no esté vacío y que contenga la URL y el código). Un ejemplo:
+ * Ignora líneas vacías o líneas que no contengan dos puntos.
  *
- *   Resumen de la petición
- *   ──────────────────────
- *   URL:     https://api.ejemplo.com/users
- *   Status:  200 (2xx Éxito)
- *   Headers:
- *     • Content-Type: application/json
- *     • Authorization: Bearer abc
+ * @param text Texto que contiene las cabeceras HTTP.
+ * @returns Objeto con los nombres y valores de las cabeceras.
  */
 export function summarizeRequest(
   url: string,
@@ -178,6 +156,17 @@ export function summarizeRequest(
     headersSummary || "  (sin cabeceras)",
   ].join("\n");
 }
+
+/**
+ * Genera un resumen legible de una petición HTTP.
+ *
+ * @param url URL de la petición.
+ * @param status Código de estado HTTP.
+ * @param headersText Cabeceras HTTP en formato de texto.
+ * @returns Resumen con la URL, estado y cabeceras.
+ */
+
+
 // ---------------------------------------------------------------------------
 // CLI
 // ---------------------------------------------------------------------------
