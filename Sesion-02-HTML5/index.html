@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta
     name="description"
     content="Mini-sitio sobre las comidas típicas de Guatemala"
   >
+
   <title>Sabores de Guatemala | Inicio</title>
 </head>
 
@@ -41,6 +43,7 @@
           width="800"
           height="400"
         >
+
         <figcaption>
           La comida guatemalteca combina historia, cultura y tradición.
         </figcaption>
@@ -111,6 +114,7 @@
         <p>
           Puedes consultar más información sobre la gastronomía del país en
           este
+
           <a
             href="https://es.wikipedia.org/wiki/Gastronom%C3%ADa_de_Guatemala"
             target="_blank"
@@ -119,6 +123,57 @@
             recurso externo sobre gastronomía guatemalteca
           </a>.
         </p>
+      </section>
+
+      <section>
+        <h3>Información interactiva</h3>
+
+        <p>
+          Utiliza los siguientes botones para conocer más información sobre
+          la gastronomía guatemalteca y sobre este proyecto.
+        </p>
+
+        <button
+          type="button"
+          popovertarget="dato-gastronomico"
+        >
+          Mostrar dato gastronómico
+        </button>
+
+        <div id="dato-gastronomico" popover>
+          <h4>Dato interesante</h4>
+
+          <p>
+            El maíz es uno de los ingredientes más importantes de la
+            gastronomía guatemalteca y se utiliza para preparar tortillas,
+            tamales y diferentes bebidas tradicionales.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          commandfor="informacion-proyecto"
+          command="show-modal"
+        >
+          Abrir información del proyecto
+        </button>
+
+        <dialog id="informacion-proyecto">
+          <h3>Sobre Sabores de Guatemala</h3>
+
+          <p>
+            Este mini-sitio fue elaborado como parte de la Sesión 2 del curso
+            de Desarrollo Web, utilizando elementos nativos de HTML.
+          </p>
+
+          <button
+            type="button"
+            commandfor="informacion-proyecto"
+            command="close"
+          >
+            Cerrar
+          </button>
+        </dialog>
       </section>
     </article>
   </main>
