@@ -1,117 +1,222 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Productos — Tarea CSS</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Galería de productos tecnológicos y lista de tareas"
+  >
+
+  <title>TechStore | Galería de productos</title>
+
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+  <header>
+    <h1>TechStore</h1>
 
-    <main class="container">
-        <h1>Galería de Productos</h1>
+    <p>
+      Productos tecnológicos para estudiar, trabajar y disfrutar.
+    </p>
+  </header>
 
-        <!-- TODO: Galería de productos
-             Cada tarjeta debe contener:
-             - Imagen del producto (usa placeholder o imágenes de ejemplo)
-             - Nombre del producto
-             - Precio
-             - Botón con texto "Comprar"
-             
-             Desktop (>=1024px): 3 columnas
-             Mobile (<768px): 1 columna con scroll vertical
-        -->
-        <section class="galeria">
+  <main>
+    <section class="galeria" aria-labelledby="titulo-galeria">
+      <h2 id="titulo-galeria">Galería de productos</h2>
 
-            <article class="producto">
-                <img src="https://via.placeholder.com/300x200/e0e0e0/333?text=Producto+1" alt="Producto 1">
-                <div class="producto-info">
-                    <h2>Nombre del Producto 1</h2>
-                    <p class="precio">Q99.99</p>
-                    <button class="btn-comprar">Comprar</button>
-                </div>
-            </article>
+      <article class="producto">
+        <img
+          src="https://placehold.co/600x400?text=Laptop"
+          alt="Laptop gris con la pantalla encendida"
+          width="600"
+          height="400"
+        >
 
-            <article class="producto">
-                <img src="https://via.placeholder.com/300x200/e0e0e0/333?text=Producto+2" alt="Producto 2">
-                <div class="producto-info">
-                    <h2>Nombre del Producto 2</h2>
-                    <p class="precio">Q149.99</p>
-                    <button class="btn-comprar">Comprar</button>
-                </div>
-            </article>
+        <h3>Laptop profesional</h3>
 
-            <article class="producto">
-                <img src="https://via.placeholder.com/300x200/e0e0e0/333?text=Producto+3" alt="Producto 3">
-                <div class="producto-info">
-                    <h2>Nombre del Producto 3</h2>
-                    <p class="precio">Q199.99</p>
-                    <button class="btn-comprar">Comprar</button>
-                </div>
-            </article>
+        <p>
+          Equipo portátil ideal para estudiar, programar y trabajar.
+        </p>
 
-            <article class="producto">
-                <img src="https://via.placeholder.com/300x200/e0e0e0/333?text=Producto+4" alt="Producto 4">
-                <div class="producto-info">
-                    <h2>Nombre del Producto 4</h2>
-                    <p class="precio">Q79.99</p>
-                    <button class="btn-comprar">Comprar</button>
-                </div>
-            </article>
+        <p class="precio">Q6,499.00</p>
 
-            <article class="producto">
-                <img src="https://via.placeholder.com/300x200/e0e0e0/333?text=Producto+5" alt="Producto 5">
-                <div class="producto-info">
-                    <h2>Nombre del Producto 5</h2>
-                    <p class="precio">Q249.99</p>
-                    <button class="btn-comprar">Comprar</button>
-                </div>
-            </article>
+        <button type="button">Comprar</button>
+      </article>
 
-            <article class="producto">
-                <img src="https://via.placeholder.com/300x200/e0e0e0/333?text=Producto+6" alt="Producto 6">
-                <div class="producto-info">
-                    <h2>Nombre del Producto 6</h2>
-                    <p class="precio">Q299.99</p>
-                    <button class="btn-comprar">Comprar</button>
-                </div>
-            </article>
+      <article class="producto">
+        <img
+          src="https://placehold.co/600x400?text=Audifonos"
+          alt="Audífonos inalámbricos de color negro"
+          width="600"
+          height="400"
+        >
 
-        </section>
+        <h3>Audífonos inalámbricos</h3>
 
-        <h2>To-Do List</h2>
+        <p>
+          Audífonos cómodos con conexión Bluetooth y sonido claro.
+        </p>
 
-        <!-- TODO: Layout de Todo List
-             Lista de tareas estilizada con:
-             - Checkbox para marcar completado
-             - Texto de la tarea
-             - Diseño limpio y accesible
-        -->
-        <section class="todo-list">
-            <ul class="tareas" role="list">
-                <li class="tarea">
-                    <input type="checkbox" id="t1">
-                    <label for="t1">Aprender CSS Grid</label>
-                </li>
-                <li class="tarea">
-                    <input type="checkbox" id="t2">
-                    <label for="t2">Practicar Flexbox</label>
-                </li>
-                <li class="tarea">
-                    <input type="checkbox" id="t3">
-                    <label for="t3">Estudiar diseño responsivo</label>
-                </li>
-                <li class="tarea">
-                    <input type="checkbox" id="t4">
-                    <label for="t4">Hacer la tarea de CSS</label>
-                </li>
-                <li class="tarea">
-                    <input type="checkbox" id="t5">
-                    <label for="t5">Revisar novedades de CSS 2024</label>
-                </li>
-            </ul>
-        </section>
-    </main>
+        <p class="precio">Q349.00</p>
 
+        <button type="button">Comprar</button>
+      </article>
+
+      <article class="producto">
+        <img
+          src="https://placehold.co/600x400?text=Teclado"
+          alt="Teclado mecánico para computadora"
+          width="600"
+          height="400"
+        >
+
+        <h3>Teclado mecánico</h3>
+
+        <p>
+          Teclado resistente y cómodo para escritura y videojuegos.
+        </p>
+
+        <p class="precio">Q425.00</p>
+
+        <button type="button">Comprar</button>
+      </article>
+
+      <article class="producto">
+        <img
+          src="https://placehold.co/600x400?text=Mouse"
+          alt="Mouse inalámbrico ergonómico"
+          width="600"
+          height="400"
+        >
+
+        <h3>Mouse inalámbrico</h3>
+
+        <p>
+          Mouse ergonómico con conexión estable y alta precisión.
+        </p>
+
+        <p class="precio">Q189.00</p>
+
+        <button type="button">Comprar</button>
+      </article>
+
+      <article class="producto">
+        <img
+          src="https://placehold.co/600x400?text=Monitor"
+          alt="Monitor de computadora con pantalla amplia"
+          width="600"
+          height="400"
+        >
+
+        <h3>Monitor de 24 pulgadas</h3>
+
+        <p>
+          Pantalla Full HD para trabajar, estudiar y entretenerse.
+        </p>
+
+        <p class="precio">Q1,399.00</p>
+
+        <button type="button">Comprar</button>
+      </article>
+
+      <article class="producto">
+        <img
+          src="https://placehold.co/600x400?text=Camara+Web"
+          alt="Cámara web colocada sobre un monitor"
+          width="600"
+          height="400"
+        >
+
+        <h3>Cámara web Full HD</h3>
+
+        <p>
+          Cámara con micrófono para reuniones y clases virtuales.
+        </p>
+
+        <p class="precio">Q299.00</p>
+
+        <button type="button">Comprar</button>
+      </article>
+    </section>
+
+    <section class="todo-list" aria-labelledby="titulo-tareas">
+      <h2 id="titulo-tareas">Lista de tareas</h2>
+
+      <p>
+        Actividades pendientes para administrar la tienda.
+      </p>
+
+      <ul>
+        <li>
+          <input
+            type="checkbox"
+            id="tarea-productos"
+            name="tareas"
+          >
+
+          <label for="tarea-productos">
+            Revisar los nuevos productos
+          </label>
+        </li>
+
+        <li>
+          <input
+            type="checkbox"
+            id="tarea-precios"
+            name="tareas"
+          >
+
+          <label for="tarea-precios">
+            Actualizar los precios
+          </label>
+        </li>
+
+        <li>
+          <input
+            type="checkbox"
+            id="tarea-pedidos"
+            name="tareas"
+          >
+
+          <label for="tarea-pedidos">
+            Preparar los pedidos
+          </label>
+        </li>
+
+        <li>
+          <input
+            type="checkbox"
+            id="tarea-mensajes"
+            name="tareas"
+          >
+
+          <label for="tarea-mensajes">
+            Responder los mensajes de los clientes
+          </label>
+        </li>
+
+        <li>
+          <input
+            type="checkbox"
+            id="tarea-inventario"
+            name="tareas"
+          >
+
+          <label for="tarea-inventario">
+            Organizar el inventario
+          </label>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      &copy; 2026 TechStore. Proyecto académico de Desarrollo Web.
+    </p>
+  </footer>
 </body>
 </html>
