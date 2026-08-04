@@ -1,20 +1,156 @@
-/* TODO: Reset y estilos base */
+/* Reset y configuración general */
 
-/* TODO: Galería de productos */
-/* Desktop (>=1024px): 3 columnas usando CSS Grid */
-/* Mobile (<768px): 1 columna con scroll vertical */
+* {
+  box-sizing: border-box;
+}
 
-/* TODO: Estilo de cada tarjeta de producto */
-/* - Imagen ocupa el ancho completo de la tarjeta */
-/* - Nombre del producto en negrita */
-/* - Precio destacado */
-/* - Botón "Comprar" estilizado con hover effect */
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1f2937;
+  background-color: #f3f4f6;
+}
 
-/* TODO: To-Do List */
-/* - Lista sin marcadores (list-style: none) */
-/* - Checkbox con label accesible */
-/* - Tareas alternadas con color de fondo (zebra striping) */
+body {
+  margin: 0;
+  min-height: 100vh;
+  line-height: 1.6;
+}
 
-/* TODO: Diseño responsivo */
-/* - Usar @media queries para cambiar entre mobile y desktop */
-/* - La galería debe ser responsiva usando Grid + media queries */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+/* Encabezado principal */
+
+body > header {
+  padding: 32px 20px;
+  text-align: center;
+  color: white;
+  background-color: #1e3a8a;
+}
+
+body > header h1 {
+  margin: 0 0 8px;
+  font-size: 2.4rem;
+}
+
+body > header p {
+  margin: 0;
+  color: #dbeafe;
+}
+
+/* Contenido principal */
+
+main {
+  width: min(1200px, 92%);
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+section {
+  margin-bottom: 48px;
+}
+
+section > h2 {
+  margin-top: 0;
+  color: #1e3a8a;
+  font-size: 1.8rem;
+}
+
+/* Galería de productos */
+
+.galeria {
+  padding: 24px;
+  background-color: white;
+  border-radius: 16px;
+}
+
+.producto {
+  overflow: hidden;
+  padding: 18px;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+}
+
+.producto img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.producto h3 {
+  margin: 18px 0 8px;
+  color: #111827;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.producto p {
+  margin: 8px 0;
+}
+
+.producto .precio {
+  color: #166534;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.producto button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 18px;
+  color: white;
+  background-color: #2563eb;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Lista de tareas */
+
+.todo-list {
+  padding: 24px;
+  background-color: white;
+  border-radius: 16px;
+}
+
+.todo-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-list li {
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.todo-list input {
+  margin-right: 10px;
+}
+
+.todo-list label {
+  cursor: pointer;
+}
+
+/* Pie de página */
+
+footer {
+  padding: 24px;
+  text-align: center;
+  color: white;
+  background-color: #111827;
+}
+
+footer p {
+  margin: 0;
+}
