@@ -133,7 +133,20 @@ export function infoSistema() {
  * @returns {{ registrar: (mensaje: string) => void, onRegistro: (fn: (linea: string) => void) => void }}
  */
 export function crearLogger() {
-    throw new Error('Not implemented: crearLogger');
+    const emisor = new EventEmitter();
+
+    return {
+        registrar(mensaje) {
+            const fecha = new Date().toISOString();
+            const linea = `[${fecha}] ${mensaje}`;
+
+            emisor.emit('registro', linea);
+        },
+
+        onRegistro(fn) {
+            emisor.on('registro', fn);
+        },
+    };
 }
 
 /**
@@ -144,7 +157,22 @@ export function crearLogger() {
  * @returns {Promise<Array<{id: string, texto: string, fecha: string}>>}
  */
 export async function leerMensajes(archivoDatos) {
-    throw new Error('Not implemented: leerMensajes');
+    try {
+        const contenido = await fs.readFile(archivoDatos, 'utf8');
+        const datos = JSON.parse(contenido);
+
+        if (!Array.isArray(datos)) {
+            return [];
+        }
+
+        return datos;
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            return [];
+        }
+
+        throw error;
+    }
 }
 
 /**
@@ -157,7 +185,31 @@ export async function leerMensajes(archivoDatos) {
  * @returns {Promise<{id: string, texto: string, fecha: string} | null>}
  */
 export async function agregarMensaje(archivoDatos, texto) {
-    throw new Error('Not implemented: agregarMensaje');
+    if (typeof texto !== 'string' || texto.trim() === '') {
+        return null;
+    }
+
+    const mensajes = await leerMensajes(archivoDatos);
+
+    const nuevoMensaje = {
+        id: generarId(),
+        texto: texto.trim(),
+        fecha: new Date().toISOString(),
+    };
+
+    mensajes.push(nuevoMensaje);
+
+    const directorio = path.dirname(archivoDatos);
+
+    await fs.mkdir(directorio, { recursive: true });
+
+    await fs.writeFile(
+        archivoDatos,
+        JSON.stringify(mensajes, null, 2),
+        'utf8'
+    );
+
+    return nuevoMensaje;
 }
 
 /**
