@@ -40,6 +40,7 @@ export function generarId() {
 function leerBody(req) {
     return new Promise((resolve, reject) => {
         let data = '';
+
         req.on('data', (chunk) => (data += chunk));
         req.on('end', () => resolve(data));
         req.on('error', reject);
@@ -201,7 +202,9 @@ export async function agregarMensaje(archivoDatos, texto) {
 
     const directorio = path.dirname(archivoDatos);
 
-    await fs.mkdir(directorio, { recursive: true });
+    await fs.mkdir(directorio, {
+        recursive: true,
+    });
 
     await fs.writeFile(
         archivoDatos,
@@ -224,7 +227,143 @@ export async function agregarMensaje(archivoDatos, texto) {
  * @returns {import('node:http').Server}
  */
 export function crearServidor(config = {}) {
-    throw new Error('Not implemented: crearServidor');
+    const archivoDatos =
+        config.archivoDatos || 'data/mensajes.json';
+
+    const nombreApp =
+        config.nombreApp || 'mensajes-api';
+
+    const logger =
+        config.logger || crearLogger();
+
+    return http.createServer(async (req, res) => {
+        res.setHeader(
+            'Content-Type',
+            'application/json; charset=utf-8'
+        );
+
+        const url = new URL(
+            req.url || '/',
+            `http://${req.headers.host || 'localhost'}`
+        );
+
+        logger.registrar(
+            `${req.method} ${url.pathname}`
+        );
+
+        try {
+            // ==========================================
+            // GET /
+            // ==========================================
+            if (
+                req.method === 'GET' &&
+                url.pathname === '/'
+            ) {
+                res.statusCode = 200;
+
+                res.end(
+                    JSON.stringify({
+                        mensaje: `Bienvenido a ${nombreApp}`,
+                        hora: new Date().toISOString(),
+                        sistema: infoSistema(),
+                    })
+                );
+
+                return;
+            }
+
+            // ==========================================
+            // GET /mensajes
+            // ==========================================
+            if (
+                req.method === 'GET' &&
+                url.pathname === '/mensajes'
+            ) {
+                const mensajes =
+                    await leerMensajes(archivoDatos);
+
+                res.statusCode = 200;
+
+                res.end(
+                    JSON.stringify(mensajes)
+                );
+
+                return;
+            }
+
+            // ==========================================
+            // POST /mensajes
+            // ==========================================
+            if (
+                req.method === 'POST' &&
+                url.pathname === '/mensajes'
+            ) {
+                const contenido =
+                    await leerBody(req);
+
+                let body;
+
+                try {
+                    body = JSON.parse(contenido);
+                } catch {
+                    res.statusCode = 400;
+
+                    res.end(
+                        JSON.stringify({
+                            error: 'JSON inválido',
+                        })
+                    );
+
+                    return;
+                }
+
+                const nuevoMensaje =
+                    await agregarMensaje(
+                        archivoDatos,
+                        body.texto
+                    );
+
+                if (!nuevoMensaje) {
+                    res.statusCode = 400;
+
+                    res.end(
+                        JSON.stringify({
+                            error: 'El texto es obligatorio',
+                        })
+                    );
+
+                    return;
+                }
+
+                res.statusCode = 201;
+
+                res.end(
+                    JSON.stringify(nuevoMensaje)
+                );
+
+                return;
+            }
+
+            // ==========================================
+            // Ruta no encontrada
+            // ==========================================
+            res.statusCode = 404;
+
+            res.end(
+                JSON.stringify({
+                    error: 'Ruta no encontrada',
+                })
+            );
+        } catch (error) {
+            res.statusCode = 500;
+
+            res.end(
+                JSON.stringify({
+                    error: 'Error interno del servidor',
+                })
+            );
+        }
+    });
 }
 
 /**
@@ -235,5 +374,22 @@ export function crearServidor(config = {}) {
  * @returns {import('node:http').Server}
  */
 export function iniciarServidor(config = {}) {
-    throw new Error('Not implemented: iniciarServidor');
+    const puerto =
+        config.puerto ?? 3000;
+
+    const logger =
+        config.logger || crearLogger();
+
+    const servidor = crearServidor({
+        ...config,
+        logger,
+    });
+
+    servidor.listen(puerto, () => {
+        logger.registrar(
+            `Servidor en http://localhost:${puerto}`
+        );
+    });
+
+    return servidor;
 }
